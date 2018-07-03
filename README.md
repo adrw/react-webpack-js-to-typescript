@@ -146,7 +146,8 @@ module.exports = {
 ```JSON
 {
   "compilerOptions": {
-      "outDir": "./dist",
+      "outDir": "./dist/",
+      "declaration": true,
       "sourceMap": true,
       "noImplicitAny": true,
       "module": "commonjs",

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-interface HelloProps {
+export interface HelloProps {
     author: string,
     company: string
 }
