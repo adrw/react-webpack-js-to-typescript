@@ -24,6 +24,12 @@ src/
     HomePage.jsx
     AnotherComponent.jsx
 webpack.config.js
+.gitignore
+```
+
+- `.gitignore`
+```
+node_modules
 ```
 
 - `src/index.html`
@@ -83,6 +89,7 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 })
 
 module.exports = {
+  mode: 'development',
   entry: path.join(__dirname, '/src/index.js'),
   output: {
     filename: 'bundle.js',
@@ -90,15 +97,14 @@ module.exports = {
   },
   devServer: {
     port: '3000',
-    hot: true,
     historyApiFallback: true
   },
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'source-map-loader'
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader',
       },
     ]
   },
@@ -107,17 +113,17 @@ module.exports = {
   },
   plugins: [HTMLWebpackPluginConfig]
 }
-
 ```
-
 
 - Install Typescript devDependencies `yarn add --dev @types/react @types/react-dom awesome-typescript-loader prop-types typescript`
 
-- Add following to `webpack.config.js`
+- Update the following to `webpack.config.js`
 ```Javascript
 module.exports = {
   ...
   module: {
+    ...
+    entry: path.join(__dirname, '/src/index.tsx'),
     ...
     rules: [
       {
@@ -134,13 +140,37 @@ module.exports = {
 
 ```
 
-- Add Interfaces to `src/components/HelloComponent.jsx`
+- Add new file `tsconfig.json` which has TypeScript compiler configuration
+```JSON
+{
+  "compilerOptions": {
+      "outDir": "./dist",
+      "sourceMap": true,
+      "noImplicitAny": true,
+      "module": "commonjs",
+      "jsx": "react",
+      "target": "es5",
+      "lib": ["es5", "es6", "dom", "es2017"]
+  },
+  "include": [
+      "./src/**/*"
+  ]
+}
+```
+
+- Rename to TypeScipt extensions
+  - `src/index.js` -> `src/index.tsx`
+  - `src/components/HelloComponent.jsx` -> `src/components/HelloComponent.tsx`
+
+- Try `yarn start` and you will now have TypeScript Errors! Now, let's fix them!
+
+- Add Interfaces to `src/components/HelloComponent.tsx`
 ```Javascript
 import * as React from 'react'
 
 interface HelloProps {
-    compiler: string;
-    framework: string;
+    author: string,
+    company: string
 }
 
 const Hello = (props: HelloProps) => (
