@@ -1,4 +1,8 @@
-# 0703-typescript-demo
+# react-webpack-js-to-typescript
+
+The purpose of this demo was to showcase the process of moving a basic React project using standard JavaScript ES6+ and Webpack 4 to use TypeScript.
+
+The instructions below allow you to try for yourself setting up a npm repo from scratch, build an initial React + JavaScript application, and then move that implementation to TypeScript.
 
 # Repo Setup
 - Initialize package.json `yarn init`
@@ -13,7 +17,7 @@
   },
 ```
 
-# Basic React Wiring
+# React + JavaScript Setup
 - Initialize initial directory and copy starter file contents into respective files
 
 ```
@@ -47,7 +51,7 @@ node_modules
 ```
 
 - `src/index.js`
-```Javascript
+```js
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
@@ -60,7 +64,7 @@ ReactDOM.render(
 ```
 
 - `src/components/HelloComponent.jsx`
-```Javascript
+```js
 import * as React from 'react'
 
 const Hello = (props) => (
@@ -78,7 +82,7 @@ export class HelloComponent extends React.Component {
 ```
 
 - `webpack.config.js`
-```Javascript
+```js
 const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 
@@ -115,12 +119,12 @@ module.exports = {
 }
 ```
 
-# Transition Repo to TypeScript
+# JavaScript -> TypeScript
 
-- Install Typescript devDependencies `yarn add --dev @types/react @types/react-dom awesome-typescript-loader prop-types typescript`
+- Install TypeScript devDependencies `yarn add --dev @types/react @types/react-dom awesome-typescript-loader prop-types typescript`
 
 - Update the following to `webpack.config.js`
-```Javascript
+```js
 module.exports = {
   ...
   module: {
@@ -167,8 +171,13 @@ module.exports = {
 
 - Try `yarn start` and you will now have TypeScript Errors! Now, let's fix them!
 
-- Add Interfaces to `src/components/HelloComponent.tsx`
-```Javascript
+- This error requires adding an Interface for props to `src/components/HelloComponent.tsx`
+```js
+ERROR in [at-loader] ./src/components/HelloComponent.tsx:8:16
+    TS7006: Parameter 'props' implicitly has an 'any' type.
+```
+
+```tsx
 import * as React from 'react'
 
 interface HelloProps {
@@ -189,6 +198,11 @@ export class HelloComponent extends React.Component<HelloProps, {}> {
     }
 }
 ```
+
+# Branches
+- `0-clean-repo`: Provides an empty repo to start the tutorial with
+- `1-react-javascript`: Completes the first step of *React + JavaScript* with initial Webpack + React + JavaScript compiling
+- `master`: finished work of basic React + TypeScript project
 
 # Authors
 - Andrew Paradi [@adrw](https://github.com/adrw/)
