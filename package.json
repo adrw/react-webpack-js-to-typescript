@@ -1,8 +1,8 @@
 {
-  "name": "0703-typescript-demo",
+  "name": "react-webpack-js-to-typescript",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:adrw/0703-typescript-demo.git",
+  "repository": "git@github.com:adrw/react-webpack-js-to-typescript.git",
   "author": "Andrew Paradi <account+github@adrw.ch>",
   "license": "MIT",
   "scripts": {
