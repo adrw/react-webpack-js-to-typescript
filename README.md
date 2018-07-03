@@ -1,6 +1,6 @@
 # 0703-typescript-demo
 
-#Repo Setup
+# Repo Setup
 - Initialize package.json `yarn init`
 - Install non-TypeScript dependencies `yarn add --save `
 - Install non-TypeScript devDependencies `yarn add --dev babel-core babel-loader babel-preset-react html-webpack-plugin react react-dom webpack webpack-cli webpack-dev-server`
@@ -13,7 +13,7 @@
   },
 ```
 
-#Basic React Wiring
+# Basic React Wiring
 - Initialize initial directory and copy starter file contents into respective files
 
 ```
@@ -186,3 +186,6 @@ export class HelloComponent extends React.Component<HelloProps, {}> {
     }
 }
 ```
+
+# Authors
+- Andrew Paradi [@adrw](https://github.com/adrw/)
