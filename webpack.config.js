@@ -9,7 +9,7 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 
 module.exports = {
   mode: 'development',
-  entry: path.join(__dirname, '/src/index.js'),
+  entry: path.join(__dirname, '/src/index.tsx'),
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, 'dist')
@@ -24,11 +24,15 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader',
+      },  {
+        test: /\.(tsx|ts)$/,
+        exclude: /node_modules/,
+        loaders: 'awesome-typescript-loader'
       },
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
   },
   plugins: [HTMLWebpackPluginConfig]
 }

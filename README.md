@@ -1,6 +1,10 @@
-# 0703-typescript-demo
+# react-webpack-js-to-typescript
 
-#Repo Setup
+The purpose of this demo was to showcase the process of moving a basic React project using standard JavaScript ES6+ and Webpack 4 to use TypeScript.
+
+The instructions below allow you to try for yourself setting up a npm repo from scratch, build an initial React + JavaScript application, and then move that implementation to TypeScript.
+
+# Repo Setup
 - Initialize package.json `yarn init`
 - Install non-TypeScript dependencies `yarn add --save `
 - Install non-TypeScript devDependencies `yarn add --dev babel-core babel-loader babel-preset-react html-webpack-plugin react react-dom webpack webpack-cli webpack-dev-server`
@@ -13,7 +17,7 @@
   },
 ```
 
-#Basic React Wiring
+# React + JavaScript Setup
 - Initialize initial directory and copy starter file contents into respective files
 
 ```
@@ -24,6 +28,12 @@ src/
     HomePage.jsx
     AnotherComponent.jsx
 webpack.config.js
+.gitignore
+```
+
+- `.gitignore`
+```
+node_modules
 ```
 
 - `src/index.html`
@@ -41,7 +51,7 @@ webpack.config.js
 ```
 
 - `src/index.js`
-```Javascript
+```js
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
@@ -54,12 +64,11 @@ ReactDOM.render(
 ```
 
 - `src/components/HelloComponent.jsx`
-```Javascript
+```js
 import * as React from 'react'
 
 const Hello = (props) => (
     <div>
-      <h1>It's <strong>HomePage</strong> y'allllllllllllllll</h1>
       <h1>This React site was built by {props.author} at {props.company}</h1>
     </div>
 )
@@ -72,7 +81,7 @@ export class HelloComponent extends React.Component {
 ```
 
 - `webpack.config.js`
-```Javascript
+```js
 const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 
@@ -83,6 +92,7 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 })
 
 module.exports = {
+  mode: 'development',
   entry: path.join(__dirname, '/src/index.js'),
   output: {
     filename: 'bundle.js',
@@ -90,15 +100,14 @@ module.exports = {
   },
   devServer: {
     port: '3000',
-    hot: true,
     historyApiFallback: true
   },
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'source-map-loader'
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader',
       },
     ]
   },
@@ -107,17 +116,19 @@ module.exports = {
   },
   plugins: [HTMLWebpackPluginConfig]
 }
-
 ```
 
+# JavaScript -> TypeScript
 
-- Install Typescript devDependencies `yarn add --dev @types/react @types/react-dom awesome-typescript-loader prop-types typescript`
+- Install TypeScript devDependencies `yarn add --dev @types/react @types/react-dom awesome-typescript-loader prop-types typescript`
 
-- Add following to `webpack.config.js`
-```Javascript
+- Update the following to `webpack.config.js`
+```js
 module.exports = {
   ...
   module: {
+    ...
+    entry: path.join(__dirname, '/src/index.tsx'),
     ...
     rules: [
       {
@@ -134,18 +145,47 @@ module.exports = {
 
 ```
 
-- Add Interfaces to `src/components/HelloComponent.jsx`
-```Javascript
+- Add new file `tsconfig.json` which has TypeScript compiler configuration
+```JSON
+{
+  "compilerOptions": {
+      "outDir": "./dist/",
+      "declaration": true,
+      "sourceMap": true,
+      "noImplicitAny": true,
+      "module": "commonjs",
+      "jsx": "react",
+      "target": "es5",
+      "lib": ["es5", "es6", "dom", "es2017"]
+  },
+  "include": [
+      "./src/**/*"
+  ]
+}
+```
+
+- Rename to TypeScipt extensions
+  - `src/index.js` -> `src/index.tsx`
+  - `src/components/HelloComponent.jsx` -> `src/components/HelloComponent.tsx`
+
+- Try `yarn start` and you will now have TypeScript Errors! Now, let's fix them!
+
+- This error requires adding an Interface for props to `src/components/HelloComponent.tsx`
+```js
+ERROR in [at-loader] ./src/components/HelloComponent.tsx:8:16
+    TS7006: Parameter 'props' implicitly has an 'any' type.
+```
+
+```tsx
 import * as React from 'react'
 
 interface HelloProps {
-    compiler: string;
-    framework: string;
+    author: string,
+    company: string
 }
 
 const Hello = (props: HelloProps) => (
     <div>
-      <h1>It's <strong>HomePage</strong> y'allllllllllllllll</h1>
       <h1>This React site was built by {props.author} at {props.company}</h1>
     </div>
 )
@@ -156,3 +196,11 @@ export class HelloComponent extends React.Component<HelloProps, {}> {
     }
 }
 ```
+
+# Branches
+- `0-clean-repo`: Provides an empty repo to start the tutorial with
+- `1-react-javascript`: Completes the first step of *React + JavaScript* with initial Webpack + React + JavaScript compiling
+- `master`: finished work of basic React + TypeScript project
+
+# Authors
+- Andrew Paradi [@adrw](https://github.com/adrw/)
