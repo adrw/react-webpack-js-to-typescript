@@ -115,6 +115,8 @@ module.exports = {
 }
 ```
 
+# Transition Repo to TypeScript
+
 - Install Typescript devDependencies `yarn add --dev @types/react @types/react-dom awesome-typescript-loader prop-types typescript`
 
 - Update the following to `webpack.config.js`
