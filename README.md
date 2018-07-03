@@ -149,12 +149,8 @@ module.exports = {
 ```JSON
 {
   "compilerOptions": {
-<<<<<<< HEAD
       "outDir": "./dist/",
       "declaration": true,
-=======
-      "outDir": "./dist",
->>>>>>> Transitioned to Typescript
       "sourceMap": true,
       "noImplicitAny": true,
       "module": "commonjs",
