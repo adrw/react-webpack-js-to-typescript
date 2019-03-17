@@ -1,5 +1,7 @@
 # react-webpack-js-to-typescript
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/adrw/react-webpack-js-to-typescript.svg)](https://greenkeeper.io/)
+
 The purpose of this demo was to showcase the process of moving a basic React project using standard JavaScript ES6+ and Webpack 4 to use TypeScript.
 
 The instructions below allow you to try for yourself setting up a npm repo from scratch, build an initial React + JavaScript application, and then move that implementation to TypeScript.
